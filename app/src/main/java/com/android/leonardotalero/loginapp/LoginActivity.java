@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
     private String mEmail;
     private String mPass;
     private TextView mlinkRegister;
+    private UserClass mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +127,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         mDB = dbHelper.getWritableDatabase();
 
 
-
+        Cursor cursor = getUser();
+       //Boolean a= cursor.moveToFirst();
+        if (cursor.moveToFirst()){
+            do {
+                String uid= cursor.getString(0);
+                String email = cursor.getString(1);
+                String name = cursor.getString(2);
+                String created_at = cursor.getString(3);
+                String updated_at = cursor.getString(4);
+                mUser=new UserClass(uid,email,name,created_at,updated_at);
+            } while(cursor.moveToNext());
+            goToMainActivity(mUser);
+        }
 
         //usuario=getUser();
 
@@ -360,6 +373,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 null,
                 null,
                 null
+        );
+    }
+
+
+
+    private Cursor getUser() {
+        // COMPLETED (6) Inside, call query on mDb passing in the table name and projection String [] order by COLUMN_TIMESTAMP
+        return mDB.query(
+                LoginContract.LoginEntry.TABLE_NAME,
+                new String[] {LoginContract.LoginEntry.KEY_UID,LoginContract.LoginEntry.KEY_EMAIL,
+                        LoginContract.LoginEntry.KEY_NAME,LoginContract.LoginEntry.KEY_CREATED_AT,
+                        LoginContract.LoginEntry.KEY_UPDATED_AT},
+                null,
+                null,
+                null,
+                null,
+                LoginContract.LoginEntry.KEY_CREATED_AT
         );
     }
 

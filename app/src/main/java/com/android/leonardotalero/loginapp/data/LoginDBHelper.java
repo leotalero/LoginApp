@@ -16,7 +16,7 @@ public class LoginDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "android_test.db";
 
     // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
 
     // Constructor
@@ -34,7 +34,8 @@ public class LoginDBHelper extends SQLiteOpenHelper {
                 LoginEntry.KEY_NAME + " TEXT NOT NULL, " +
                 LoginEntry.KEY_EMAIL + " TEXT NOT NULL, " +
                 LoginEntry.KEY_UID + " TEXT NOT NULL, " +
-                LoginEntry.KEY_CREATED_AT + " TEXT NOT NULL " +
+                LoginEntry.KEY_CREATED_AT + " TIMESTAMP NOT NULL, " +
+                LoginEntry.KEY_UPDATED_AT + " TIMESTAMP  NULL " +
                 "); ";
 
         sqLiteDatabase.execSQL(SQL_CREATE_WAITLIST_TABLE);

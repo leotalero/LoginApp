@@ -1,6 +1,9 @@
 package com.android.leonardotalero.loginapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.leonardotalero.loginapp.data.LoginContract;
+import com.android.leonardotalero.loginapp.data.LoginDBHelper;
 import com.android.leonardotalero.loginapp.utils.UserClass;
 
 public class Main2Activity extends AppCompatActivity
@@ -24,9 +29,13 @@ public class Main2Activity extends AppCompatActivity
     private UserClass mUser;
     private TextView mUserMail;
     private TextView mUserName;
+    private SQLiteDatabase mDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        LoginDBHelper dbHelper = new LoginDBHelper(this);
+        mDB = dbHelper.getWritableDatabase();
 
 
 
@@ -99,6 +108,11 @@ public class Main2Activity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.action_log_out) {
+            removeData();
+            Intent intent=new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,5 +139,24 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void removeData(){
+        try
+        {
+            mDB.beginTransaction();
+            //clear the table first
+            mDB.delete (LoginContract.LoginEntry.TABLE_NAME,null,null);
+            //go through the list and add one by one
+
+            mDB.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            //too bad :(
+        }
+        finally
+        {
+            mDB.endTransaction();
+        }
     }
 }

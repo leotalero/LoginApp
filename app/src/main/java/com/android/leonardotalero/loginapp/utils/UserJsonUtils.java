@@ -8,6 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -79,6 +83,25 @@ public class UserJsonUtils {
     }
 
 
+
+
+    public static java.sql.Timestamp convertStringtoTime(String date){
+
+        DateFormat formatter ;
+
+        formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        try{
+            Date date_ = (Date)formatter.parse(date);
+            java.sql.Timestamp timeStampDate = new java.sql.Timestamp(date_.getTime());
+            System.out.println("Today is " + timeStampDate.getTime());
+            return  timeStampDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
 
 
 
