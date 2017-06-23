@@ -125,6 +125,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         mDB = dbHelper.getWritableDatabase();
 
+
+
+
         //usuario=getUser();
 
     }
@@ -281,7 +284,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             goToMainActivity(data);
 
         } else {
-            showErrorMessage(data.mError);
+            if(data != null){
+                showErrorMessage(data.mError);
+            }else{
+                showErrorMessage("");
+            }
+
 
         }
         flagLoadingData=false;
@@ -354,5 +362,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 null
         );
     }
+
+    
 }
 
