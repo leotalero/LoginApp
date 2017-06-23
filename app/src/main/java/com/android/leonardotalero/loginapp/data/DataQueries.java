@@ -13,7 +13,7 @@ import static android.R.id.list;
  * Created by leonardotalero on 6/23/17.
  */
 
-public class SaveData {
+public class DataQueries {
 
 
 
@@ -43,6 +43,25 @@ public class SaveData {
             db.endTransaction();
         }
 
+    }
+
+    public static void removeData(SQLiteDatabase mDB){
+        try
+        {
+            mDB.beginTransaction();
+            //clear the table first
+            mDB.delete (LoginContract.LoginEntry.TABLE_NAME,null,null);
+            //go through the list and add one by one
+
+            mDB.setTransactionSuccessful();
+        }
+        catch (SQLException e) {
+            //too bad :(
+        }
+        finally
+        {
+            mDB.endTransaction();
+        }
     }
 
 

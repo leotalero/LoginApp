@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.leonardotalero.loginapp.data.DataQueries;
 import com.android.leonardotalero.loginapp.data.LoginContract;
 import com.android.leonardotalero.loginapp.data.LoginDBHelper;
 import com.android.leonardotalero.loginapp.utils.UserClass;
@@ -109,7 +110,7 @@ public class Main2Activity extends AppCompatActivity
         }
 
         if (id == R.id.action_log_out) {
-            removeData();
+            DataQueries.removeData(mDB);
             Intent intent=new Intent(this,LoginActivity.class);
             startActivity(intent);
         }
@@ -141,22 +142,5 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
-    public void removeData(){
-        try
-        {
-            mDB.beginTransaction();
-            //clear the table first
-            mDB.delete (LoginContract.LoginEntry.TABLE_NAME,null,null);
-            //go through the list and add one by one
 
-            mDB.setTransactionSuccessful();
-        }
-        catch (SQLException e) {
-            //too bad :(
-        }
-        finally
-        {
-            mDB.endTransaction();
-        }
-    }
 }

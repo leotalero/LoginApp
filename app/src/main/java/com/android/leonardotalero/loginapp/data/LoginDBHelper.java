@@ -50,4 +50,5 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LoginEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
 }
