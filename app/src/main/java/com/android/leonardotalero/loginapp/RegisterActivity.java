@@ -274,7 +274,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
             goToMainActivity(data);
 
         } else {
-            showErrorMessage(data.mError);
+            if(data != null){
+                showErrorMessage(data.mError);
+            }else{
+                showErrorMessage("");
+            }
 
         }
         flagLoadingData=false;
