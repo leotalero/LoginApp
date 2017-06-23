@@ -271,7 +271,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderManager
 
             showJsonDataView();
 
-            //goToMainActivity(data);
+            goToMainActivity(data);
 
         } else {
             showErrorMessage(data.mError);

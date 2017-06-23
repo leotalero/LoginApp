@@ -37,7 +37,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.leonardotalero.loginapp.data.LoginContract;
 import com.android.leonardotalero.loginapp.data.LoginDBHelper;
+import com.android.leonardotalero.loginapp.data.SaveData;
 import com.android.leonardotalero.loginapp.utils.NetworkUtils;
 import com.android.leonardotalero.loginapp.utils.UserClass;
 import com.android.leonardotalero.loginapp.utils.UserJsonUtils;
@@ -122,6 +124,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
        LoginDBHelper dbHelper = new LoginDBHelper(this);
 
         mDB = dbHelper.getWritableDatabase();
+
+        //usuario=getUser();
 
     }
 
@@ -273,6 +277,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
             showJsonDataView();
 
+            SaveData.saveInDb(mDB,data);
             goToMainActivity(data);
 
         } else {
@@ -335,5 +340,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         startActivity(intentToStartDetailActivity);
     }
 
+
+
+    private Cursor getUser(String email) {
+
+        return mDB.query(
+                LoginContract.LoginEntry.TABLE_NAME,
+                new String[] {LoginContract.LoginEntry.KEY_UID},
+                LoginContract.LoginEntry.KEY_EMAIL,
+                new String[] {email},
+                null,
+                null,
+                null
+        );
+    }
 }
 

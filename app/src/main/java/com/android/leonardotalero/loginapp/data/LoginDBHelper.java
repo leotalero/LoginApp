@@ -16,7 +16,7 @@ public class LoginDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "android_test.db";
 
     // If you change the database schema, you must increment the database version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     // Constructor
@@ -30,7 +30,7 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         // Create a table to hold waitlist data
         final String SQL_CREATE_WAITLIST_TABLE = "CREATE TABLE " + LoginEntry.TABLE_NAME + " (" +
                 LoginEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                LoginEntry.KEY_ID + " INTEGER NOT NULL, " +
+                LoginEntry.KEY_ID + " INTEGER  NULL, " +
                 LoginEntry.KEY_NAME + " TEXT NOT NULL, " +
                 LoginEntry.KEY_EMAIL + " TEXT NOT NULL, " +
                 LoginEntry.KEY_UID + " TEXT NOT NULL, " +

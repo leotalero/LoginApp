@@ -18,7 +18,7 @@
     <string name="welcome_label">Welcome:</string>
     <string name="default_email">xxx@xxx</string>
     <string name="error_message">Error fetching server try later when you have connection</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main2">Main</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
